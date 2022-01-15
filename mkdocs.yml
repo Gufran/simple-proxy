@@ -1,0 +1,44 @@
+site_name: Simple Proxy
+
+repo_name: Gufran/simple-proxy
+repo_url: https://github.com/Gufran/simple-proxy
+
+site_url: https://gufran.github.io/simple-proxy
+site_description: Run simple TCP proxies
+site_author: Gufran
+
+docs_dir: site
+site_dir: docs
+
+theme:
+  name: 'material'
+  palette:
+    primary: 'White'
+    accent: 'Teal'
+  icon:
+    logo: octicons/database-24
+
+markdown_extensions:
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - markdown.extensions.def_list
+  - attr_list
+  - meta

@@ -130,7 +130,7 @@ func Handle(ctx context.Context, refresh <-chan []*tcpproxy.Proxy, errc <-chan e
 			}
 
 			log.Printf("all %d listeners from new configuration are online", len(newProxies))
-			closeAll(proxies)
+			go closeAll(proxies)
 
 			proxies = newProxies
 		}

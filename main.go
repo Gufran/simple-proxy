@@ -129,7 +129,7 @@ func Handle(ctx context.Context, refresh <-chan []*tcpproxy.Proxy, errc <-chan e
 				continue
 			}
 
-			log.Println("all listeners from new configuration are online. Shutting down the old listeners")
+			log.Printf("all %d listeners from new configuration are online", len(newProxies))
 			closeAll(proxies)
 
 			proxies = newProxies
@@ -158,6 +158,8 @@ func closeAll(proxies []*tcpproxy.Proxy) {
 		return
 	}
 
+	log.Printf("shutting down %d old listeners", len(proxies))
+
 	for _, proxy := range proxies {
 		// Close is always successful
 		_ = proxy.Close()
@@ -165,9 +167,21 @@ func closeAll(proxies []*tcpproxy.Proxy) {
 
 	for _, proxy := range proxies {
 		err := proxy.Wait()
-		if err != nil {
-			log.Printf("proxy listener closed with an error. %s", err)
+		if err == nil {
+			continue
 		}
+
+		opErr, ok := err.(*net.OpError)
+		if !ok {
+			log.Printf("proxy listener closed with an error. %s", err)
+			continue
+		}
+
+		if opErr.Err.Error() == "use of closed network connection" {
+			continue
+		}
+
+		log.Printf("proxy listener closed with an error. %s", opErr)
 	}
 }
 

@@ -3,8 +3,29 @@ package main
 import (
 	"fmt"
 	"github.com/google/go-cmp/cmp"
+	"io/ioutil"
+	"path"
+	"path/filepath"
 	"testing"
 )
+
+func TestValidateE2EConfig(t *testing.T) {
+	info, err := ioutil.ReadDir("./testing")
+	if err != nil {
+		t.Error(err)
+	}
+
+	for _, p := range info {
+		if filepath.Ext(p.Name()) != ".hcl" {
+			continue
+		}
+
+		_, err := loadConfigFromFile(path.Join("testing", p.Name()))
+		if err != nil {
+			t.Fatalf("failed to load config from file %s. %s", p.Name(), err)
+		}
+	}
+}
 
 func TestLoadConfig(t *testing.T) {
 	cases := map[string]struct {

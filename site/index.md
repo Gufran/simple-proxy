@@ -6,7 +6,7 @@ Simple Proxy allows you to run TCP proxy capable of routing the connection based
 
 ## Install
 
-Pre-built binaries are available from [releases][] page. You can also install simple-proxy using `go get` or pull the docker image from Github packages repository.
+Pre-built binaries are available from [releases][] page. You can also install simple-proxy using `go get`.
 
 Using `go get`:
 

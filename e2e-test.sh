@@ -25,7 +25,7 @@ cat ./testing/config-1.hcl > "${config_file}"
 
 log "Starting simple-proxy with config-1. Logs will be written to ${logs_file}."
 
-./pkg/simple-proxy --config "${config_file}" > "${logs_file}" 2>&1 &
+./pkg/simple-proxy-"$(go env GOOS)_$(go env GOARCH)" --config "${config_file}" > "${logs_file}" 2>&1 &
 proxy_pid=$!
 
 log "Simple-proxy is running with PID ${proxy_pid}"
